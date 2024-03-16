@@ -1,16 +1,17 @@
 'use client'
-import DefaultNavBar from "@/components/DefaultNavBar";
+
+import React, { useState } from "react";
 import Image from "next/image";
-import { useState } from "react";
+
+import Navbar from "@/components/navbar/Navbar";
+import Header from "@/components/header/Header";
+
 
 export default function Home() {
-  const [openMenu, setOpenMenu] = useState(false)
   return (
-    <div className="m-0 p-0">
-      <div className="bg-#1a1717">
-
-      </div>
-      <DefaultNavBar menuButtonOnClick={() => setOpenMenu(!openMenu)}/>
-    </div>
+    <>
+      <Navbar />
+      <Header />
+    </>
   );
 }
