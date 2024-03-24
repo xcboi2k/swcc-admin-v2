@@ -56,7 +56,7 @@ const Navbar = () => {
                 <div className="flex items-center">
                     <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1">
                         <div className="flex items-center">
-                            <div className="text-[16px] text-primary text-center">Log In</div>
+                            <div className="text-[16px] text-primary text-center font-bold">Log In</div>
                         </div>
                     </button>
                 </div>
