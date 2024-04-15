@@ -1,11 +1,14 @@
 import React from 'react'
 import Image from 'next/image';
+import { useRouter } from 'next/navigation'
+
 import { FaPhoneAlt, FaFacebookF, FaInstagram, FaLinkedinIn, FaBell, FaUser, FaSearch } from "react-icons/fa";
 import { FaXTwitter, FaAngleDown } from "react-icons/fa6";
 
 import SWCCLogo from '@/public/logos/swccLogo.png'
 
 const Navbar = () => {
+    const router = useRouter()
     return (
         <div>
             <div className="flex items-center justify-between bg-secondary1 py-4 px-20">
@@ -54,7 +57,8 @@ const Navbar = () => {
                     <div className="text-[60px] font-bold text-secondary2 text-center">SWCC</div>
                 </div>
                 <div className="flex items-center">
-                    <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1">
+                    <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
+                        onClick={() => router.push('/login')}>
                         <div className="flex items-center">
                             <div className="text-[16px] text-primary text-center font-bold">Log In</div>
                         </div>

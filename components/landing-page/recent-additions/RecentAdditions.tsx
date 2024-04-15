@@ -1,6 +1,6 @@
 import React from 'react'
 import RecentAdditionsCard from './recent-additions-card/RecentAdditionsCard'
-import { sampleRecentAdditions } from '@/sample-data/landingPageData'
+import { sampleRecentAdditions } from '@/public/sample-data/landingPageData'
 
 const RecentAdditions = () => {
     return (
