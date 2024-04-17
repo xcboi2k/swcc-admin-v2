@@ -3,6 +3,7 @@ const nextConfig = {
     images:{
         domains:[
             'placehold.co',
+            'firebasestorage.googleapis.com',
         ]
     }
 };
