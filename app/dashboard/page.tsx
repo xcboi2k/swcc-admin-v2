@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Header from '@/components/dashboard/header/Header'
+import Header from '@/components/shared/header/Header'
 import CollectionsPreview from '@/components/dashboard/collections-preview/CollectionsPreview'
-import Footer from '@/components/dashboard/footer/Footer';
+import Footer from '@/components/shared/footer/Footer';
 
 export default function page() {
   return (
