@@ -17,6 +17,7 @@ type PropType = {
 
 const CollectionView: React.FC<PropType> = (props) => {
     const { id } = props
+    const router = useRouter()
 
     const [collection, setCollection] = useState<any>()
     const [collectionTitle, setCollectionTitle] = useState<string>()
@@ -60,7 +61,7 @@ const CollectionView: React.FC<PropType> = (props) => {
                 <div className='flex items-center justify-between'>
                     <div className="text-[25px] font-semibold text-secondary2">{collectionTitle}</div>
                     <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
-                        // onClick={() => router.push('/login')}
+                        onClick={() => router.push('/add/ba20132014')}
                     >
                         <div className="flex items-center">
                             <div className="text-[16px] text-primary text-center font-bold">Add</div>
