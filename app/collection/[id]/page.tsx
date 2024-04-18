@@ -8,7 +8,7 @@ export default function page({params} : {params: {id: string}}) {
   return (
     <>
         <Header />
-          <CollectionView id={params.id}/>
+        <CollectionView id={params.id}/>
         <Footer />
     </>
   )

@@ -28,10 +28,30 @@ const CollectionView: React.FC<PropType> = (props) => {
     const MU20152017List: any[] = useMU20152017Store((state) => state.figures)
 
     useEffect(() => {
-      if(id === 'ba20132014'){
-        setCollection(BA20132014List)
-        setCollectionTitle('Basic Assortment 2013-2014')
-      }
+        switch (id) {
+            case 'ba20132014':
+                setCollection(BA20132014List)
+                setCollectionTitle('Basic Assortment 2013-2014')
+                break;
+            case 'ba20142015':
+                setCollection(BA20142015List)
+                setCollectionTitle('Basic Assortment 2014-2015')
+                break;
+            case 'ba20152017':
+                setCollection(BA20152017List)
+                setCollectionTitle('Basic Assortment 2015-2017')
+                break;
+            case 'ex20142015':
+                setCollection(EX20142015List)
+                setCollectionTitle('Exclusives 2013-2014')
+                break;
+            case 'mu20152017':
+                setCollection(MU20152017List)
+                setCollectionTitle('Multipacks 2013-2014')
+                break;
+            default:
+                break;
+        }
     }, [id])
     
     return (
@@ -47,7 +67,7 @@ const CollectionView: React.FC<PropType> = (props) => {
                         </div>
                     </button>
                 </div>
-                <div className="grid grid-cols-5 mt-[15px]">
+                <div className="grid grid-cols-5 gap-[20px] mt-[15px]">
                     {
                         collection?.map((item: any, index: number) => (
                             <CollectionCard 

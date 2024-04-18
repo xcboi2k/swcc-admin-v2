@@ -69,7 +69,7 @@ const CollectionsPreview = () => {
                 <div className='flex items-center justify-between'>
                     <div className="text-[25px] font-semibold text-secondary2">Basic Assortment 2014-2015</div>
                     <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
-                        // onClick={() => router.push('/login')}
+                        onClick={() => router.push('/collection/ba20142015')}
                     >
                         <div className="flex items-center">
                             <div className="text-[16px] text-primary text-center font-bold">View All</div>
@@ -93,7 +93,7 @@ const CollectionsPreview = () => {
                 <div className='flex items-center justify-between'>
                     <div className="text-[25px] font-semibold text-secondary2">Basic Assortment 2015-2017</div>
                     <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
-                        // onClick={() => router.push('/login')}
+                        onClick={() => router.push('/collection/ba20152017')}
                     >
                         <div className="flex items-center">
                             <div className="text-[16px] text-primary text-center font-bold">View All</div>
@@ -117,7 +117,7 @@ const CollectionsPreview = () => {
                 <div className='flex items-center justify-between'>
                     <div className="text-[25px] font-semibold text-secondary2">Exclusives 2014-2015</div>
                     <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
-                        // onClick={() => router.push('/login')}
+                        onClick={() => router.push('/collection/ex20142015')}
                     >
                         <div className="flex items-center">
                             <div className="text-[16px] text-primary text-center font-bold">View All</div>
@@ -141,7 +141,7 @@ const CollectionsPreview = () => {
                 <div className='flex items-center justify-between'>
                     <div className="text-[25px] font-semibold text-secondary2">Multipacks 2015-2017</div>
                     <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
-                        // onClick={() => router.push('/login')}
+                        onClick={() => router.push('/collection/mu20152017')}
                     >
                         <div className="flex items-center">
                             <div className="text-[16px] text-primary text-center font-bold">View All</div>
