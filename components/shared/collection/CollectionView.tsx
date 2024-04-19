@@ -17,6 +17,7 @@ type PropType = {
 
 const CollectionView: React.FC<PropType> = (props) => {
     const { id } = props
+    const router = useRouter()
 
     const [collection, setCollection] = useState<any>()
     const [collectionTitle, setCollectionTitle] = useState<string>()
@@ -53,6 +54,30 @@ const CollectionView: React.FC<PropType> = (props) => {
                 break;
         }
     }, [id])
+
+    console.log('collection:', collection)
+
+    const handleViewFigureDetails = (figureID: string) => {
+        switch (id) {
+            case 'ba20132014':
+                router.push(`/view/ba20132014/${figureID}`)
+                break;
+            case 'ba20142015':
+                router.push(`/view/ba20142015/${figureID}`)
+                break;
+            case 'ba20152017':
+                router.push(`/view/ba20152017/${figureID}`)
+                break;
+            case 'ex20142015':
+                router.push(`/view/ex20142015/${figureID}`)
+                break;
+            case 'mu20152017':
+                router.push(`/view/mu20152017/${figureID}`)
+                break;
+            default:
+                break;
+        }
+    }
     
     return (
         <div className="flex flex-col items-center justify-between py-10 px-20">
@@ -60,7 +85,7 @@ const CollectionView: React.FC<PropType> = (props) => {
                 <div className='flex items-center justify-between'>
                     <div className="text-[25px] font-semibold text-secondary2">{collectionTitle}</div>
                     <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
-                        // onClick={() => router.push('/login')}
+                        onClick={() => router.push('/add/ba20132014')}
                     >
                         <div className="flex items-center">
                             <div className="text-[16px] text-primary text-center font-bold">Add</div>
@@ -75,6 +100,7 @@ const CollectionView: React.FC<PropType> = (props) => {
                                 figureName={item.figure_name}
                                 figureVersion={item.figure_version}
                                 photoUrl={item.photoUrl}
+                                pressCollectionCard={() => handleViewFigureDetails(item.id)}
                             />
                         ))
                     }
