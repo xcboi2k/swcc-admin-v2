@@ -5,6 +5,10 @@ import { ErrorMessage, Field, Form, Formik, useFormik } from 'formik';
 import Image from 'next/image';
 
 import { useBA20132014Store } from '@/stores/useBA20132014Store';
+import { useBA20142015Store } from '@/stores/useBA20142015Store';
+import { useBA20152017Store } from '@/stores/useBA20152017Store';
+import { useEX20142015Store } from '@/stores/useEX20142015Store';
+import { useMU20152017Store } from '@/stores/useMU20152017Store';
 
 type PropType = {
     collection: string,
@@ -21,6 +25,7 @@ interface Figure {
     figure_joint_count: string;
     figure_accessory_count: string;
     figure_accessory_details: string;
+    photoUrl: string;
 }
 
 type formValues = {
@@ -75,6 +80,7 @@ const EditForm: React.FC<PropType> = (props) => {
     };
 
     const [currentFigure, setCurrentFigure] = useState<Figure | undefined>(undefined);
+    const [currentFigureImg, setCurrentFigureImg] = useState<string | undefined>('');
 
     // form values
     const initialValues: formValues = { 
@@ -100,33 +106,128 @@ const EditForm: React.FC<PropType> = (props) => {
     }
 
     // FETCH DATA
-    const figures: Figure[] = useBA20132014Store((state) => state.figures);
+    const BA20132014Figures: Figure[] = useBA20132014Store((state) => state.figures);
+    const BA20142015Figures: Figure[] = useBA20142015Store((state) => state.figures);
+    const BA20152017Figures: Figure[] = useBA20152017Store((state) => state.figures);
+    const EX20142015Figures: Figure[] = useEX20142015Store((state) => state.figures);
+    const MU20152017Figures: Figure[] = useMU20152017Store((state) => state.figures);
+    
     useEffect(() => {
-        // GET THEN VALUES OF THE FIGURE
-        const current = figures.find((item) => item.id === id);
-        console.log('current figure', current)
+        switch (collection) {
+            case 'ba20132014':
+                const currentBA20132014 = BA20132014Figures.find((item) => item.id === id);
+                console.log('current figure', currentBA20132014)
 
-        // SET THE VALUE OF THE FIELDS
-        // setSelectedFile({source: current?.photoUrl});
+                setCurrentFigure(currentBA20132014);
+                setCurrentFigureImg(currentBA20132014?.photoUrl)
+                break;
+            case 'ba20142015':
+                const currentBA20142015 = BA20142015Figures.find((item) => item.id === id);
+                console.log('current figure', currentBA20142015)
 
-        setCurrentFigure(current);
-    }, [id]);
+                setCurrentFigure(currentBA20142015);
+                setCurrentFigureImg(currentBA20142015?.photoUrl)
+                break;
+            case 'ba20152017':
+                const currentBA20152017 = BA20152017Figures.find((item) => item.id === id);
+                console.log('current figure', currentBA20152017)
+
+                setCurrentFigure(currentBA20152017);
+                setCurrentFigureImg(currentBA20152017?.photoUrl)
+                break;
+            case 'ex20142015':
+                const currentEX20142015 = EX20142015Figures.find((item) => item.id === id);
+                console.log('current figure', currentEX20142015)
+
+                setCurrentFigure(currentEX20142015);
+                setCurrentFigureImg(currentEX20142015?.photoUrl)
+                break;
+            case 'mu20152017':
+                const currentMU20152017 = MU20152017Figures.find((item) => item.id === id);
+                console.log('current figure', currentMU20152017)
+
+                setCurrentFigure(currentMU20152017);
+                setCurrentFigureImg(currentMU20152017?.photoUrl)
+                break;
+            default:
+                break;
+        }
+    }, [id, collection]);
 
     // FORMS
-    const addFigure = useBA20132014Store((state) => state.addFigure)
+    const updateFigureBA20132014 = useBA20132014Store((state) => state.updateFigure)
+    const updateFigureBA20142015 = useBA20142015Store((state) => state.updateFigure)
+    const updateFigureBA20152017 = useBA20152017Store((state) => state.updateFigure)
+    const updateFigureEX20142015 = useEX20142015Store((state) => state.updateFigure)
+    const updateFigureMU20152017 = useMU20152017Store((state) => state.updateFigure)
+
     const handleSubmit = (values: any) => {
-        console.log('add inputs:', values);
-        console.log('add file:', selectedFile?.file)
-        // addFigure({ 
-        //     figure_number: values.number,
-        //     figure_name: values.name,
-        //     figure_version: values.version,
-        //     figure_date_stamp: values.dateStamp,
-        //     figure_release_date: values.releaseDate,
-        //     figure_joint_count: values.jointCount,
-        //     figure_accessory_count: values.accessoryCount,
-        //     figure_accessory_details: values.accessoryDetails,
-        // }, selectedFile?.file);
+        console.log('update inputs:', values);
+        console.log('update file:', selectedFile?.file)
+        switch (collection) {
+            case 'ba20132014':
+                updateFigureBA20132014(id, { 
+                    figure_number: values.number,
+                    figure_name: values.name,
+                    figure_version: values.version,
+                    figure_date_stamp: values.dateStamp,
+                    figure_release_date: values.releaseDate,
+                    figure_joint_count: values.jointCount,
+                    figure_accessory_count: values.accessoryCount,
+                    figure_accessory_details: values.accessoryDetails,
+                }, selectedFile ? selectedFile?.file : null)
+                break;
+            case 'ba20142015':
+                updateFigureBA20142015(id, { 
+                    figure_number: values.number,
+                    figure_name: values.name,
+                    figure_version: values.version,
+                    figure_date_stamp: values.dateStamp,
+                    figure_release_date: values.releaseDate,
+                    figure_joint_count: values.jointCount,
+                    figure_accessory_count: values.accessoryCount,
+                    figure_accessory_details: values.accessoryDetails,
+                }, selectedFile ? selectedFile?.file : null)
+                break;
+            case 'ba20152017':
+                updateFigureBA20152017(id, { 
+                    figure_number: values.number,
+                    figure_name: values.name,
+                    figure_version: values.version,
+                    figure_date_stamp: values.dateStamp,
+                    figure_release_date: values.releaseDate,
+                    figure_joint_count: values.jointCount,
+                    figure_accessory_count: values.accessoryCount,
+                    figure_accessory_details: values.accessoryDetails,
+                }, selectedFile ? selectedFile?.file : null)
+                break;
+            case 'ex20142015':
+                updateFigureMU20152017(id, { 
+                    figure_number: values.number,
+                    figure_name: values.name,
+                    figure_version: values.version,
+                    figure_date_stamp: values.dateStamp,
+                    figure_release_date: values.releaseDate,
+                    figure_joint_count: values.jointCount,
+                    figure_accessory_count: values.accessoryCount,
+                    figure_accessory_details: values.accessoryDetails,
+                }, selectedFile ? selectedFile?.file : null)
+                break;
+            case 'mu20152017':
+                updateFigureEX20142015(id, { 
+                    figure_number: values.number,
+                    figure_name: values.name,
+                    figure_version: values.version,
+                    figure_date_stamp: values.dateStamp,
+                    figure_release_date: values.releaseDate,
+                    figure_joint_count: values.jointCount,
+                    figure_accessory_count: values.accessoryCount,
+                    figure_accessory_details: values.accessoryDetails,
+                }, selectedFile ? selectedFile?.file : null)
+                break;
+            default:
+                break;
+        }
         formik.resetForm();
         setSelectedFile(null);
     };
@@ -225,9 +326,9 @@ const EditForm: React.FC<PropType> = (props) => {
                         
                         <div className='w-[30%] flex flex-col items-center justify-between'>
                             {
-                                selectedFile ? (
+                                currentFigureImg ? (
                                     <>
-                                        <Image src={imageBlob} alt="selected-file" width={100} height={100} quality={100}
+                                        <Image src={currentFigureImg} alt="selected-file" width={100} height={100} quality={100}
                                         className='w-[500px] h-[680px] object-cover rounded-md mb-[20px]'/>
                                         <div className="px-[45px] py-[15px] rounded-md bg-secondary1 cursor-pointer mb-[20px]" onClick={() => inputRef.current?.click()}>
                                             <input
@@ -240,29 +341,51 @@ const EditForm: React.FC<PropType> = (props) => {
                                             />
                                             <div className="flex items-center">
                                                 <div className="text-[16px] text-primary text-center font-bold">
-                                                    Upload another image
+                                                    Update image
                                                 </div>
                                             </div>
                                         </div>
                                     </>
                                 ) : (
-                                    <div className="px-[45px] py-[15px] rounded-md bg-secondary1 cursor mb-[20px]" onClick={() => inputRef.current?.click()}>
-                                        <input
-                                            type='file'
-                                            onChange={handleFileSelect}
-                                            onClick={handleFileClick}
-                                            accept='image/*'
-                                            ref={inputRef}
-                                            hidden
-                                        />
-                                        <div className="flex items-center">
-                                            <div className="text-[16px] text-primary text-center font-bold">
-                                                Upload image
+                                    selectedFile ? (
+                                        <>
+                                            <Image src={imageBlob} alt="selected-file" width={100} height={100} quality={100}
+                                            className='w-[500px] h-[680px] object-cover rounded-md mb-[20px]'/>
+                                            <div className="px-[45px] py-[15px] rounded-md bg-secondary1 cursor-pointer mb-[20px]" onClick={() => inputRef.current?.click()}>
+                                                <input
+                                                    type='file'
+                                                    onChange={handleFileSelect}
+                                                    onClick={handleFileClick}
+                                                    accept='image/*'
+                                                    ref={inputRef}
+                                                    hidden
+                                                />
+                                                <div className="flex items-center">
+                                                    <div className="text-[16px] text-primary text-center font-bold">
+                                                        Upload another image
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <div className="px-[45px] py-[15px] rounded-md bg-secondary1 cursor mb-[20px]" onClick={() => inputRef.current?.click()}>
+                                            <input
+                                                type='file'
+                                                onChange={handleFileSelect}
+                                                onClick={handleFileClick}
+                                                accept='image/*'
+                                                ref={inputRef}
+                                                hidden
+                                            />
+                                            <div className="flex items-center">
+                                                <div className="text-[16px] text-primary text-center font-bold">
+                                                    Upload image
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    )
+                                    
                                 )
-                                
                             }
                                 <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
                                     type="submit"
