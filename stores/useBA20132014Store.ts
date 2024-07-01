@@ -37,6 +37,8 @@ const BA20132014Store = (set: any) => ({
             toast.success('Figure successfully added!');
         } catch (err) {
             console.log('addFigureError:', err);
+        } finally {
+            toast.dismiss(loader);
         }
     },
     updateFigure: async(documentId: any, updatedFigure: any, newFile: any) => {

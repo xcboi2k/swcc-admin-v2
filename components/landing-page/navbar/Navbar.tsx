@@ -36,18 +36,21 @@ const Navbar = () => {
                 </div>
                 <nav>
                     <ul className="flex">
-                    <li className="mr-4">
-                        <a href="#" className="text-white">FAQs</a>
-                    </li>
-                    <li className="mr-4">
-                        <a href="#" className="text-white">Contact Us</a>
-                    </li>
-                    <li className="mr-4">
-                        <a href="#" className="text-white">Privacy Policy</a>
-                    </li>
-                    <li>
-                        <a href="#" className="text-white">Terms and Conditions</a>
-                    </li>
+                        <li className="mr-4">
+                            <a href="#" className="text-white">FAQs</a>
+                        </li>
+                        <li className="mr-4">
+                            <a href="#" className="text-white">Contact Us</a>
+                        </li>
+                        <li className="mr-4">
+                            <a href="#" className="text-white">Privacy Policy</a>
+                        </li>
+                        <li className="mr-4">
+                            <a href="#" className="text-white">Terms and Conditions</a>
+                        </li>
+                        <li>
+                            <a href="swcc://" target="_blank" className="text-white">Open App</a>
+                        </li>
                     </ul>
                 </nav>
             </div>

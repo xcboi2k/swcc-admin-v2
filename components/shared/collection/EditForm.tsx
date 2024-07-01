@@ -9,6 +9,7 @@ import { useBA20142015Store } from '@/stores/useBA20142015Store';
 import { useBA20152017Store } from '@/stores/useBA20152017Store';
 import { useEX20142015Store } from '@/stores/useEX20142015Store';
 import { useMU20152017Store } from '@/stores/useMU20152017Store';
+import { useRouter } from 'next/navigation';
 
 type PropType = {
     collection: string,
@@ -26,6 +27,7 @@ interface Figure {
     figure_accessory_count: string;
     figure_accessory_details: string;
     photoUrl: string;
+    photoRef: string;
 }
 
 type formValues = {
@@ -41,6 +43,8 @@ type formValues = {
 
 const EditForm: React.FC<PropType> = (props) => {
     const { collection, id } = props
+
+    const router = useRouter()
 
     const inputRef = useRef<HTMLInputElement | null>(null);
     const hasSelectedFile = useRef<boolean | null>(null);
@@ -175,7 +179,11 @@ const EditForm: React.FC<PropType> = (props) => {
                     figure_joint_count: values.jointCount,
                     figure_accessory_count: values.accessoryCount,
                     figure_accessory_details: values.accessoryDetails,
-                }, selectedFile ? selectedFile?.file : null)
+                }, selectedFile ? selectedFile?.file : currentFigureImg).then((success) => {
+                    if (success) {
+                        router.push('dashboard');
+                    }
+                });
                 break;
             case 'ba20142015':
                 updateFigureBA20142015(id, { 
@@ -187,7 +195,11 @@ const EditForm: React.FC<PropType> = (props) => {
                     figure_joint_count: values.jointCount,
                     figure_accessory_count: values.accessoryCount,
                     figure_accessory_details: values.accessoryDetails,
-                }, selectedFile ? selectedFile?.file : null)
+                }, selectedFile ? selectedFile?.file : currentFigureImg).then((success) => {
+                    if (success) {
+                        router.push('dashboard');
+                    }
+                });
                 break;
             case 'ba20152017':
                 updateFigureBA20152017(id, { 
@@ -199,7 +211,11 @@ const EditForm: React.FC<PropType> = (props) => {
                     figure_joint_count: values.jointCount,
                     figure_accessory_count: values.accessoryCount,
                     figure_accessory_details: values.accessoryDetails,
-                }, selectedFile ? selectedFile?.file : null)
+                }, selectedFile ? selectedFile?.file : currentFigureImg).then((success) => {
+                    if (success) {
+                        router.push('dashboard');
+                    }
+                });
                 break;
             case 'ex20142015':
                 updateFigureMU20152017(id, { 
@@ -211,7 +227,11 @@ const EditForm: React.FC<PropType> = (props) => {
                     figure_joint_count: values.jointCount,
                     figure_accessory_count: values.accessoryCount,
                     figure_accessory_details: values.accessoryDetails,
-                }, selectedFile ? selectedFile?.file : null)
+                }, selectedFile ? selectedFile?.file : currentFigureImg).then((success) => {
+                    if (success) {
+                        router.push('dashboard');
+                    }
+                });
                 break;
             case 'mu20152017':
                 updateFigureEX20142015(id, { 
@@ -223,7 +243,11 @@ const EditForm: React.FC<PropType> = (props) => {
                     figure_joint_count: values.jointCount,
                     figure_accessory_count: values.accessoryCount,
                     figure_accessory_details: values.accessoryDetails,
-                }, selectedFile ? selectedFile?.file : null)
+                }, selectedFile ? selectedFile?.file : currentFigureImg).then((success) => {
+                    if (success) {
+                        router.push('dashboard');
+                    }
+                });
                 break;
             default:
                 break;
@@ -236,6 +260,54 @@ const EditForm: React.FC<PropType> = (props) => {
         initialValues,
         onSubmit: handleSubmit
     });
+
+    const deleteFigureBA20132014 = useBA20132014Store((state) => state.deleteFigure)
+    const deleteFigureBA20142015 = useBA20142015Store((state) => state.deleteFigure)
+    const deleteFigureBA20152017 = useBA20152017Store((state) => state.deleteFigure)
+    const deleteFigureEX20142015 = useEX20142015Store((state) => state.deleteFigure)
+    const deleteFigureMU20152017 = useMU20152017Store((state) => state.deleteFigure)
+
+    const handleDelete = () => {
+        switch (collection) {
+            case 'ba20132014':
+                deleteFigureBA20132014(id , currentFigure?.photoRef || '').then((success) => {
+                    if (success) {
+                        router.push('dashboard');
+                    }
+                });
+                break;
+            case 'ba20142015':
+                deleteFigureBA20142015(id , currentFigure?.photoRef || '').then((success) => {
+                    if (success) {
+                        router.push('dashboard');
+                    }
+                });
+                break;
+            case 'ba20152017':
+                deleteFigureBA20152017(id , currentFigure?.photoRef || '').then((success) => {
+                    if (success) {
+                        router.push('dashboard');
+                    }
+                });
+                break;
+            case 'ex20142015':
+                deleteFigureEX20142015(id , currentFigure?.photoRef || '').then((success) => {
+                    if (success) {
+                        router.push('dashboard');
+                    }
+                });
+                break;
+            case 'mu20152017':
+                deleteFigureMU20152017(id , currentFigure?.photoRef || '').then((success) => {
+                    if (success) {
+                        router.push('dashboard');
+                    }
+                });
+                break;
+            default:
+                break;
+        }
+    };
 
     return (
         <>
@@ -387,13 +459,22 @@ const EditForm: React.FC<PropType> = (props) => {
                                     
                                 )
                             }
+                            <div className='flex justify-between w-[80%]'>
                                 <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
                                     type="submit"
                                 >
                                     <div className="flex items-center">
-                                        <div className="text-[16px] text-primary text-center font-bold">Submit</div>
+                                        <div className="text-[16px] text-primary text-center font-bold">Update</div>
                                     </div>
                                 </button>
+                                <button className="px-[45px] py-[15px] inline-block rounded-full bg-[#F71A09]"
+                                    onClick={handleDelete}>
+                                    <div className="flex items-center">
+                                        <div className="text-[16px] text-white text-center font-bold">Delete</div>
+                                    </div>
+                                </button>
+                            </div>
+                                
                         </div>
                     </Form>
                 </div>

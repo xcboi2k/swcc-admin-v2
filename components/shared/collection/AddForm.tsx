@@ -6,6 +6,11 @@ import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessa
 
 import { useBA20132014Store } from '@/stores/useBA20132014Store';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useBA20142015Store } from '@/stores/useBA20142015Store';
+import { useBA20152017Store } from '@/stores/useBA20152017Store';
+import { useEX20142015Store } from '@/stores/useEX20142015Store';
+import { useMU20152017Store } from '@/stores/useMU20152017Store';
 
 type PropType = {
     id: string,
@@ -24,6 +29,8 @@ type formValues = {
 
 const AddForm: React.FC<PropType> = (props) => {
     const { id } = props
+
+    const router = useRouter()
 
     const inputRef = useRef<HTMLInputElement | null>(null);
     const hasSelectedFile = useRef<boolean | null>(null);
@@ -76,20 +83,104 @@ const AddForm: React.FC<PropType> = (props) => {
 
 
     // FORMS
-    const addFigure = useBA20132014Store((state) => state.addFigure)
+    const addFigureBA20132014 = useBA20132014Store((state) => state.addFigure)
+    const addFigureBA20142015 = useBA20142015Store((state) => state.addFigure)
+    const addFigureBA20152017 = useBA20152017Store((state) => state.addFigure)
+    const addFigureEX20142015 = useEX20142015Store((state) => state.addFigure)
+    const addFigureMU20152017 = useMU20152017Store((state) => state.addFigure)
+
     const handleSubmit = (values: any) => {
         console.log('add inputs:', values);
         console.log('add file:', selectedFile?.file)
-        // addFigure({ 
-        //     figure_number: values.number,
-        //     figure_name: values.name,
-        //     figure_version: values.version,
-        //     figure_date_stamp: values.dateStamp,
-        //     figure_release_date: values.releaseDate,
-        //     figure_joint_count: values.jointCount,
-        //     figure_accessory_count: values.accessoryCount,
-        //     figure_accessory_details: values.accessoryDetails,
-        // }, selectedFile?.file);
+        switch (id) {
+            case 'ba20132014':
+                addFigureBA20132014({ 
+                    figure_number: values.number,
+                    figure_name: values.name,
+                    figure_version: values.version,
+                    figure_date_stamp: values.dateStamp,
+                    figure_release_date: values.releaseDate,
+                    figure_joint_count: values.jointCount,
+                    figure_accessory_count: values.accessoryCount,
+                    figure_accessory_details: values.accessoryDetails,
+                }, selectedFile?.file)
+                // .then((success) => {
+                //     if (success) {
+                //         router.push('dashboard');
+                //     }
+                // });
+                break;
+            case 'ba20142015':
+                addFigureBA20142015({ 
+                    figure_number: values.number,
+                    figure_name: values.name,
+                    figure_version: values.version,
+                    figure_date_stamp: values.dateStamp,
+                    figure_release_date: values.releaseDate,
+                    figure_joint_count: values.jointCount,
+                    figure_accessory_count: values.accessoryCount,
+                    figure_accessory_details: values.accessoryDetails,
+                }, selectedFile?.file)
+                // .then((success) => {
+                //     if (success) {
+                //         router.push('dashboard');
+                //     }
+                // });
+                break;
+            case 'ba20152017':
+                addFigureBA20152017({ 
+                    figure_number: values.number,
+                    figure_name: values.name,
+                    figure_version: values.version,
+                    figure_date_stamp: values.dateStamp,
+                    figure_release_date: values.releaseDate,
+                    figure_joint_count: values.jointCount,
+                    figure_accessory_count: values.accessoryCount,
+                    figure_accessory_details: values.accessoryDetails,
+                }, selectedFile?.file)
+                // .then((success) => {
+                //     if (success) {
+                //         router.push('dashboard');
+                //     }
+                // });
+                break;
+            case 'ex20142015':
+                addFigureEX20142015({ 
+                    figure_number: values.number,
+                    figure_name: values.name,
+                    figure_version: values.version,
+                    figure_date_stamp: values.dateStamp,
+                    figure_release_date: values.releaseDate,
+                    figure_joint_count: values.jointCount,
+                    figure_accessory_count: values.accessoryCount,
+                    figure_accessory_details: values.accessoryDetails,
+                }, selectedFile?.file)
+                // .then((success) => {
+                //     if (success) {
+                //         router.push('dashboard');
+                //     }
+                // });
+                break;
+            case 'mu20152017':
+                addFigureMU20152017({ 
+                    figure_number: values.number,
+                    figure_name: values.name,
+                    figure_version: values.version,
+                    figure_date_stamp: values.dateStamp,
+                    figure_release_date: values.releaseDate,
+                    figure_joint_count: values.jointCount,
+                    figure_accessory_count: values.accessoryCount,
+                    figure_accessory_details: values.accessoryDetails,
+                }, selectedFile?.file)
+                // .then((success) => {
+                //     if (success) {
+                //         router.push('dashboard');
+                //     }
+                // });
+                break;
+            default:
+                break;
+        }
         formik.resetForm();
         setSelectedFile(null);
     };
