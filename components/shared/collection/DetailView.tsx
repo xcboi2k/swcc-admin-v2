@@ -2,12 +2,14 @@
 
 import React, { useEffect, useState } from 'react'
 
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+
 import { useBA20132014Store } from '@/stores/useBA20132014Store'
 import { useBA20142015Store } from '@/stores/useBA20142015Store'
 import { useBA20152017Store } from '@/stores/useBA20152017Store'
 import { useEX20142015Store } from '@/stores/useEX20142015Store'
 import { useMU20152017Store } from '@/stores/useMU20152017Store'
-import Image from 'next/image'
 
 type PropType = {
     collection: string,
@@ -16,6 +18,7 @@ type PropType = {
 
 const DetailView: React.FC<PropType> = (props) => {
     const { collection, id } = props
+    const router = useRouter()
 
     const BA20132014List: any[] = useBA20132014Store((state) => state.figures)
     const BA20142015List: any[] = useBA20142015Store((state) => state.figures)
@@ -71,7 +74,7 @@ const DetailView: React.FC<PropType> = (props) => {
                         <div className='w-[15%] flex flex-col items-center justify-center'>
                             <div className="relative w-20 h-20 rounded-full border-4 border-white shadow-lg bg-primary">
                                 <span className="absolute inset-0 flex items-center justify-center text-secondary1 font-bold text-[30px]">
-                                    {figureDetails.figure_number}
+                                    {figureDetails?.figure_number}
                                 </span>
                             </div>
                         </div>
@@ -96,7 +99,7 @@ const DetailView: React.FC<PropType> = (props) => {
                 <div className='flex items-center justify-end'>
                     <div className='flex items-center '>
                         <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
-                            // onClick={() => router.push('/add/ba20132014')}
+                            onClick={() => router.push(`/edit/${collection}/${id}`)}
                         >
                             <div className="flex items-center">
                                 <div className="text-[16px] text-primary text-center font-bold">Edit</div>
