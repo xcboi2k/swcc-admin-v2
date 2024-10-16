@@ -6,6 +6,7 @@ import { useBA20152017Store } from '@/stores/useBA20152017Store';
 
 export default function useGetBA20152017List() {
     const setFigures = useBA20152017Store((state) => state.setFigures);
+    const [loadingBA20152017, setLoadingBA20152017] = useState<boolean>(true);
 
     useEffect(() => {
         const figureColRef = collection(db, 'BA20152017');
@@ -19,7 +20,10 @@ export default function useGetBA20152017List() {
                 });
             });
             setFigures(figures);
+            setLoadingBA20152017(false);
         });
         return unsubscribe;
-    }, []);
+    }, [setFigures]);
+
+    return { loadingBA20152017 };
 }

@@ -7,6 +7,8 @@ import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
 import LandingPageImage2 from '@/public/landing-page-images/landing-image-2.jpg'
+import Loader from '../shared/components/Loader'
+import useLoaderStore from '@/stores/useLoaderStore'
 
 type FormValues = {
     username: string
@@ -29,6 +31,7 @@ const resolver: Resolver<FormValues> = async (values) => {
 
 const Login = () => {
     const router = useRouter()
+    const { showLoader, hideLoader } = useLoaderStore();
 
     const {
         register,
@@ -37,12 +40,14 @@ const Login = () => {
         } = useForm<FormValues>({ resolver })
     const onSubmit = async (data: any) => {
         console.log('entered data:', data)
+        showLoader();
         try {
             const response = await signIn('credentials', { username: data.username, password: data.password });
             if (response?.ok) {
                 console.log('You are logged in:', response);
                 // Redirect to the dashboard page
                 window.location.href = '/dashboard';
+                hideLoader();
             } else {
                 console.log('Authentication failed');
                 // Display an error message to the user
@@ -50,6 +55,7 @@ const Login = () => {
             }
         } catch (error) {
             console.error('Error during authentication:', error);
+            hideLoader();
             // Handle other errors, e.g., network error
             // Display an error message to the user
         }
@@ -102,6 +108,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+            <Loader />
         </div>
     )
 }

@@ -6,6 +6,7 @@ import { useMU20152017Store } from '@/stores/useMU20152017Store';
 
 export default function useGetMU20152017List() {
     const setFigures = useMU20152017Store((state) => state.setFigures);
+    const [loadingMU20152017, setLoadingMU20152017] = useState<boolean>(true);
 
     useEffect(() => {
         const figureColRef = collection(db, 'MU20152017');
@@ -19,7 +20,10 @@ export default function useGetMU20152017List() {
                 });
             });
             setFigures(figures);
+            setLoadingMU20152017(false);
         });
         return unsubscribe;
-    }, []);
+    }, [setFigures]);
+
+    return { loadingMU20152017 };
 }

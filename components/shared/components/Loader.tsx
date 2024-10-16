@@ -1,18 +1,17 @@
 import React from 'react'
-import Loader from "react-js-loader";
 
-interface LoaderProps {
-    isLoading: boolean;
-}
+import useLoaderStore from '@/stores/useLoaderStore';
 
-const Loader: React.FC<LoaderProps> = ({ isLoading }) => {
-    if (!isLoading) return null;
-  
+const Loader = () => {
+    const { isLoading } = useLoaderStore();
+
+    if (!isLoading) return null; // Don't render if not loading
+
     return (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
-            <Loader type='spinner-default' bgColor={'#FFC300'} color={'#E74C3C'} title={"spinner-default"} size={100} />
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
         </div>
     );
-  };
+};
 
 export default Loader

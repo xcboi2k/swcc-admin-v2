@@ -23,11 +23,11 @@ const CollectionsPreview = () => {
     const router = useRouter()
 
     // get list hooks
-    useGetBA20132014List();
-    useGetBA20142015List();
-    useGetBA20152017List();
-    useGetEX20142015List();
-    useGetMU20152017List();
+    const { loadingBA20132014 } = useGetBA20132014List();
+    const { loadingBA20142015 } = useGetBA20142015List();
+    const { loadingBA20152017 } = useGetBA20152017List();
+    const { loadingEX20142015 } = useGetEX20142015List();
+    const { loadingMU20152017 } = useGetMU20152017List();
 
     // lists
     const BA20132014List: any[] = useBA20132014Store((state) => state.figures)
@@ -52,16 +52,23 @@ const CollectionsPreview = () => {
                         </div>
                     </button>
                 </div>
-                <div className="grid grid-cols-5 mt-[15px]">
+                <div className="relative grid grid-cols-5 mt-[15px]">
                     {
-                        BA20132014List?.map((item, index) => (
-                            <CollectionsPreviewCard 
-                                key={index}
-                                figureName={item.figure_name}
-                                figureVersion={item.figure_version}
-                                photoUrl={item.photoUrl}
-                            />
-                        ))
+                        loadingBA20132014 ? 
+                            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
+                                <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
+                            </div>
+                        :
+                            <>
+                                {BA20132014List?.map((item, index) => (
+                                    <CollectionsPreviewCard 
+                                        key={index}
+                                        figureName={item.figure_name}
+                                        figureVersion={item.figure_version}
+                                        photoUrl={item.photoUrl}
+                                    />
+                                ))}
+                            </>
                     }
                 </div>
             </div>
@@ -76,16 +83,25 @@ const CollectionsPreview = () => {
                         </div>
                     </button>
                 </div>
-                <div className="grid grid-cols-5 mt-[15px]">
+                <div className="relative grid grid-cols-5 mt-[15px]">
                     {
-                        BA20142015List?.map((item, index) => (
-                            <CollectionsPreviewCard 
-                                key={index}
-                                figureName={item.figure_name}
-                                figureVersion={item.figure_version}
-                                photoUrl={item.photoUrl}
-                            />
-                        ))
+                        loadingBA20142015 ? 
+                            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
+                                <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
+                            </div>
+                        :
+                            <>
+                                {
+                                    BA20142015List?.map((item, index) => (
+                                        <CollectionsPreviewCard 
+                                            key={index}
+                                            figureName={item.figure_name}
+                                            figureVersion={item.figure_version}
+                                            photoUrl={item.photoUrl}
+                                        />
+                                    ))
+                                }
+                            </>
                     }
                 </div>
             </div>
@@ -100,16 +116,25 @@ const CollectionsPreview = () => {
                         </div>
                     </button>
                 </div>
-                <div className="grid grid-cols-5 mt-[15px]">
+                <div className="relative grid grid-cols-5 mt-[15px]">
                     {
-                        BA20152017List?.map((item, index) => (
-                            <CollectionsPreviewCard 
-                                key={index}
-                                figureName={item.figure_name}
-                                figureVersion={item.figure_version}
-                                photoUrl={item.photoUrl}
-                            />
-                        ))
+                        loadingBA20152017 ? 
+                            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
+                                <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
+                            </div>
+                        :
+                            <>
+                                {
+                                    BA20152017List?.map((item, index) => (
+                                        <CollectionsPreviewCard 
+                                            key={index}
+                                            figureName={item.figure_name}
+                                            figureVersion={item.figure_version}
+                                            photoUrl={item.photoUrl}
+                                        />
+                                    ))
+                                }
+                            </>
                     }
                 </div>
             </div>
@@ -124,16 +149,25 @@ const CollectionsPreview = () => {
                         </div>
                     </button>
                 </div>
-                <div className="grid grid-cols-5 mt-[15px]">
+                <div className="relative grid grid-cols-5 mt-[15px]">
                     {
-                        EX20142015List?.map((item, index) => (
-                            <CollectionsPreviewCard 
-                                key={index}
-                                figureName={item.figure_name}
-                                figureVersion={item.figure_version}
-                                photoUrl={item.photoUrl}
-                            />
-                        ))
+                        loadingEX20142015 ? 
+                            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
+                                <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
+                            </div>
+                        :
+                            <>
+                                {
+                                    EX20142015List?.map((item, index) => (
+                                        <CollectionsPreviewCard 
+                                            key={index}
+                                            figureName={item.figure_name}
+                                            figureVersion={item.figure_version}
+                                            photoUrl={item.photoUrl}
+                                        />
+                                    ))
+                                }
+                            </>
                     }
                 </div>
             </div>
@@ -148,16 +182,25 @@ const CollectionsPreview = () => {
                         </div>
                     </button>
                 </div>
-                <div className="grid grid-cols-5 mt-[15px]">
+                <div className="relative grid grid-cols-5 mt-[15px]">
                     {
-                        MU20152017List?.slice(0, 5).map((item, index) => (
-                            <CollectionsPreviewCard 
-                                key={index}
-                                figureName={item.figure_name}
-                                figureVersion={item.figure_version}
-                                photoUrl={item.photoUrl}
-                            />
-                        ))
+                        loadingMU20152017 ? 
+                            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
+                                <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
+                            </div>
+                        :
+                            <>
+                                {
+                                    MU20152017List?.slice(0, 5).map((item, index) => (
+                                        <CollectionsPreviewCard 
+                                            key={index}
+                                            figureName={item.figure_name}
+                                            figureVersion={item.figure_version}
+                                            photoUrl={item.photoUrl}
+                                        />
+                                    ))
+                                }
+                            </>
                     }
                 </div>
             </div>
