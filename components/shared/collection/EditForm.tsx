@@ -10,6 +10,8 @@ import { useBA20152017Store } from '@/stores/useBA20152017Store';
 import { useEX20142015Store } from '@/stores/useEX20142015Store';
 import { useMU20152017Store } from '@/stores/useMU20152017Store';
 import { useRouter } from 'next/navigation';
+import Loader from '../components/Loader';
+import useLoaderStore from '@/stores/useLoaderStore';
 
 type PropType = {
     collection: string,
@@ -45,6 +47,7 @@ const EditForm: React.FC<PropType> = (props) => {
     const { collection, id } = props
 
     const router = useRouter()
+    const { showLoader, hideLoader } = useLoaderStore();
 
     const inputRef = useRef<HTMLInputElement | null>(null);
     const hasSelectedFile = useRef<boolean | null>(null);
@@ -166,6 +169,7 @@ const EditForm: React.FC<PropType> = (props) => {
     const updateFigureMU20152017 = useMU20152017Store((state) => state.updateFigure)
 
     const handleSubmit = (values: any) => {
+        showLoader();
         console.log('update inputs:', values);
         console.log('update file:', selectedFile?.file)
         switch (collection) {
@@ -268,6 +272,7 @@ const EditForm: React.FC<PropType> = (props) => {
     const deleteFigureMU20152017 = useMU20152017Store((state) => state.deleteFigure)
 
     const handleDelete = () => {
+        showLoader();
         switch (collection) {
             case 'ba20132014':
                 deleteFigureBA20132014(id , currentFigure?.photoRef || '').then((success) => {
@@ -479,7 +484,8 @@ const EditForm: React.FC<PropType> = (props) => {
                     </Form>
                 </div>
             )}
-        </Formik>
+            </Formik>
+            <Loader />
         </>
     )
 }

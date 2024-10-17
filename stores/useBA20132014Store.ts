@@ -6,6 +6,7 @@ import { addDoc, collection, serverTimestamp, deleteDoc, doc, updateDoc, getDoc 
 
 import { db, storage } from '../firebase'
 import { deleteObject, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import useLoaderStore from './useLoaderStore';
 
 const BA20132014Store = (set: any) => ({
     figures: [],
@@ -35,8 +36,11 @@ const BA20132014Store = (set: any) => ({
 
             toast.dismiss(loader);
             toast.success('Figure successfully added!');
+            useLoaderStore.getState().hideLoader();
         } catch (err) {
             console.log('addFigureError:', err);
+            toast.error("Error: Failed to add figure.");
+            useLoaderStore.getState().hideLoader();
         } finally {
             toast.dismiss(loader);
         }
@@ -77,11 +81,13 @@ const BA20132014Store = (set: any) => ({
             });
 
             toast.success('Updated Successfully.');
+            useLoaderStore.getState().hideLoader();
 
             return true;
         } catch (error) {
             console.log('updateFigureError:', error);
             toast.error("Error: Failed to update figure.");
+            useLoaderStore.getState().hideLoader();
 
             return false;
         } finally {
@@ -104,11 +110,13 @@ const BA20132014Store = (set: any) => ({
             // ALERT A MESSAGE
 
             toast.success('Deleted Successfully!');
+            useLoaderStore.getState().hideLoader();
 
             return true;
         } catch (err) {
             console.log('deleteFigureError:', err);
             toast.error("Error: Failed to delete figure.");
+            useLoaderStore.getState().hideLoader();
         } finally {
             toast.dismiss(deleteLoader);
         }
