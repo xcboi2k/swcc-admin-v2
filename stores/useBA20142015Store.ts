@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { v4 as uuidv4 } from 'uuid'
-import toast from 'react-toastify'
+import { toast } from 'react-toastify'
 
 import {
     addDoc,
@@ -26,7 +26,6 @@ const BA20142015Store = (set: any) => ({
     reset: () => set({ figures: [] }),
     setFigures: (data: any) => set({ figures: data }),
     addFigure: async (newFigure: any, currentFile: any) => {
-        const loader = toast.loading('Adding Figure')
         try {
             let fileUrl, fileRefName
             if (currentFile) {
@@ -47,17 +46,13 @@ const BA20142015Store = (set: any) => ({
                 timestamp: serverTimestamp(),
             })
 
-            toast.dismiss(loader)
             toast.success('Figure successfully added!')
         } catch (err) {
             console.log('addFigureError:', err)
             toast.error('Error: Failed to add figure.')
-        } finally {
-            toast.dismiss(loader)
         }
     },
     updateFigure: async (documentId: any, updatedFigure: any, newFile: any) => {
-        const editLoader = toast.loading('Updating Figure')
         try {
             const docRef = doc(db, 'BA20142015', documentId)
             const currentFigureResponse = await getDoc(docRef)
@@ -102,13 +97,10 @@ const BA20142015Store = (set: any) => ({
             toast.error('Error: Failed to update figure.')
 
             return false
-        } finally {
-            toast.dismiss(editLoader)
         }
     },
     deleteFigure: async (documentId: any, fileReference: any) => {
         console.log('Delete', documentId)
-        const deleteLoader = toast.loading('Deleting Figure')
         // CREATE A REFERENCE FOR THE DOCUMENT AND THE FILE
         const docRef = doc(db, 'BA20142015', documentId)
         const fileRef = ref(storage, fileReference)
@@ -126,8 +118,6 @@ const BA20142015Store = (set: any) => ({
         } catch (err) {
             console.log('deleteFigureError:', err)
             toast.error('Error: Failed to delete figure.')
-        } finally {
-            toast.dismiss(deleteLoader)
         }
     },
 })
