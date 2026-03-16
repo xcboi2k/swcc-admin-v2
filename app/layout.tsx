@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import NextTopLoader from 'nextjs-toploader'
 import { ToastContainer } from 'react-toastify'
+import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleTagManager } from '@next/third-parties/google'
 
 import './globals.css'
 import AuthProvider from '@/context/AuthProvider'
@@ -37,6 +39,7 @@ export default function RootLayout({
                     showAtBottom={false}
                 />
                 <AuthProvider>{children}</AuthProvider>
+                <GoogleAnalytics gaId="G-D65SS8Z2X1" />
                 <ToastContainer
                     position="bottom-right" // Position of the toast
                     autoClose={5000} // Duration before toast closes
