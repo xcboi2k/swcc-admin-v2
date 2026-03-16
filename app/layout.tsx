@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import NextTopLoader from 'nextjs-toploader'
+import { ToastContainer } from 'react-toastify'
+
 import './globals.css'
 import AuthProvider from '@/context/AuthProvider'
 import { colors } from '@/constants/themes'
@@ -35,6 +37,13 @@ export default function RootLayout({
                     showAtBottom={false}
                 />
                 <AuthProvider>{children}</AuthProvider>
+                <ToastContainer
+                    position="bottom-right" // Position of the toast
+                    autoClose={5000} // Duration before toast closes
+                    hideProgressBar={true} // Show progress bar
+                    closeOnClick // Close on click
+                    pauseOnHover // Pause on hover
+                />
             </body>
         </html>
     )
