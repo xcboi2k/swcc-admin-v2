@@ -1,26 +1,41 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import AuthProvider from "@/context/AuthProvider";
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import NextTopLoader from 'nextjs-toploader'
+import './globals.css'
+import AuthProvider from '@/context/AuthProvider'
+import { colors } from '@/constants/themes'
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "SWCC",
-};
+    title: 'SWCC',
+}
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode
 }>) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body className={inter.className}>
+                <NextTopLoader
+                    color={colors.primary}
+                    initialPosition={0.08}
+                    crawlSpeed={200}
+                    height={3}
+                    crawl={true}
+                    showSpinner={true}
+                    easing="ease"
+                    speed={200}
+                    shadow="0 0 10px #f2f3fa,0 0 5px #f2f3fa"
+                    template='<div class="bar" role="bar"><div class="peg"></div></div> 
+  <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
+                    zIndex={1600}
+                    showAtBottom={false}
+                />
+                <AuthProvider>{children}</AuthProvider>
+            </body>
+        </html>
+    )
 }
