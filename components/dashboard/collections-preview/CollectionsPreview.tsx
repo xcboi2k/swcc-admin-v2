@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
 import Image from 'next/image'
 import React from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'nextjs-toploader/app'
 
 import AdminImage from '@/public/images/admin.jpg'
 import CollectionsPreviewCard from './CollectionsPreviewCard'
@@ -18,16 +18,19 @@ import useGetBA20142015List from '@/hooks/useGetBA20142015List'
 import useGetBA20152017List from '@/hooks/useGetBA20152017List'
 import useGetEX20142015List from '@/hooks/useGetEX20142015List'
 import useGetMU20152017List from '@/hooks/useGetMU20152017List'
+import { useHideLoader } from '@/hooks/useHideLoader'
 
 const CollectionsPreview = () => {
     const router = useRouter()
 
+    useHideLoader()
+
     // get list hooks
-    const { loadingBA20132014 } = useGetBA20132014List();
-    const { loadingBA20142015 } = useGetBA20142015List();
-    const { loadingBA20152017 } = useGetBA20152017List();
-    const { loadingEX20142015 } = useGetEX20142015List();
-    const { loadingMU20152017 } = useGetMU20152017List();
+    const { loadingBA20132014 } = useGetBA20132014List()
+    const { loadingBA20142015 } = useGetBA20142015List()
+    const { loadingBA20152017 } = useGetBA20152017List()
+    const { loadingEX20142015 } = useGetEX20142015List()
+    const { loadingMU20152017 } = useGetMU20152017List()
 
     // lists
     const BA20132014List: any[] = useBA20132014Store((state) => state.figures)
@@ -39,169 +42,183 @@ const CollectionsPreview = () => {
     return (
         <div className="flex flex-col items-center justify-between py-10 px-20">
             <div className="mr-[30px] flex items-center">
-                <div className="text-[45px] font-bold text-secondary2">Collections</div>
+                <div className="text-[45px] font-bold text-secondary2">
+                    Collections
+                </div>
             </div>
             <div className="w-full flex flex-col py-10">
-                <div className='flex items-center justify-between'>
-                    <div className="text-[25px] font-semibold text-secondary2">Basic Assortment 2013-2014</div>
-                    <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
+                <div className="flex items-center justify-between">
+                    <div className="text-[25px] font-semibold text-secondary2">
+                        Basic Assortment 2013-2014
+                    </div>
+                    <button
+                        className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
                         onClick={() => router.push('/collection/ba20132014')}
                     >
                         <div className="flex items-center">
-                            <div className="text-[16px] text-primary text-center font-bold">View All</div>
+                            <div className="text-[16px] text-primary text-center font-bold">
+                                View All
+                            </div>
                         </div>
                     </button>
                 </div>
                 <div className="relative grid grid-cols-5 mt-[15px]">
-                    {
-                        loadingBA20132014 ? 
-                            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
-                                <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
-                            </div>
-                        :
-                            <>
-                                {BA20132014List?.map((item, index) => (
-                                    <CollectionsPreviewCard 
-                                        key={index}
-                                        figureName={item.figure_name}
-                                        figureVersion={item.figure_version}
-                                        photoUrl={item.photoUrl}
-                                    />
-                                ))}
-                            </>
-                    }
+                    {loadingBA20132014 ? (
+                        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
+                            <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
+                        </div>
+                    ) : (
+                        <>
+                            {BA20132014List?.map((item, index) => (
+                                <CollectionsPreviewCard
+                                    key={index}
+                                    figureName={item.figure_name}
+                                    figureVersion={item.figure_version}
+                                    photoUrl={item.photoUrl}
+                                />
+                            ))}
+                        </>
+                    )}
                 </div>
             </div>
             <div className="w-full flex flex-col py-10">
-                <div className='flex items-center justify-between'>
-                    <div className="text-[25px] font-semibold text-secondary2">Basic Assortment 2014-2015</div>
-                    <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
+                <div className="flex items-center justify-between">
+                    <div className="text-[25px] font-semibold text-secondary2">
+                        Basic Assortment 2014-2015
+                    </div>
+                    <button
+                        className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
                         onClick={() => router.push('/collection/ba20142015')}
                     >
                         <div className="flex items-center">
-                            <div className="text-[16px] text-primary text-center font-bold">View All</div>
+                            <div className="text-[16px] text-primary text-center font-bold">
+                                View All
+                            </div>
                         </div>
                     </button>
                 </div>
                 <div className="relative grid grid-cols-5 mt-[15px]">
-                    {
-                        loadingBA20142015 ? 
-                            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
-                                <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
-                            </div>
-                        :
-                            <>
-                                {
-                                    BA20142015List?.map((item, index) => (
-                                        <CollectionsPreviewCard 
-                                            key={index}
-                                            figureName={item.figure_name}
-                                            figureVersion={item.figure_version}
-                                            photoUrl={item.photoUrl}
-                                        />
-                                    ))
-                                }
-                            </>
-                    }
+                    {loadingBA20142015 ? (
+                        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
+                            <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
+                        </div>
+                    ) : (
+                        <>
+                            {BA20142015List?.map((item, index) => (
+                                <CollectionsPreviewCard
+                                    key={index}
+                                    figureName={item.figure_name}
+                                    figureVersion={item.figure_version}
+                                    photoUrl={item.photoUrl}
+                                />
+                            ))}
+                        </>
+                    )}
                 </div>
             </div>
             <div className="w-full flex flex-col py-10">
-                <div className='flex items-center justify-between'>
-                    <div className="text-[25px] font-semibold text-secondary2">Basic Assortment 2015-2017</div>
-                    <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
+                <div className="flex items-center justify-between">
+                    <div className="text-[25px] font-semibold text-secondary2">
+                        Basic Assortment 2015-2017
+                    </div>
+                    <button
+                        className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
                         onClick={() => router.push('/collection/ba20152017')}
                     >
                         <div className="flex items-center">
-                            <div className="text-[16px] text-primary text-center font-bold">View All</div>
+                            <div className="text-[16px] text-primary text-center font-bold">
+                                View All
+                            </div>
                         </div>
                     </button>
                 </div>
                 <div className="relative grid grid-cols-5 mt-[15px]">
-                    {
-                        loadingBA20152017 ? 
-                            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
-                                <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
-                            </div>
-                        :
-                            <>
-                                {
-                                    BA20152017List?.map((item, index) => (
-                                        <CollectionsPreviewCard 
-                                            key={index}
-                                            figureName={item.figure_name}
-                                            figureVersion={item.figure_version}
-                                            photoUrl={item.photoUrl}
-                                        />
-                                    ))
-                                }
-                            </>
-                    }
+                    {loadingBA20152017 ? (
+                        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
+                            <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
+                        </div>
+                    ) : (
+                        <>
+                            {BA20152017List?.map((item, index) => (
+                                <CollectionsPreviewCard
+                                    key={index}
+                                    figureName={item.figure_name}
+                                    figureVersion={item.figure_version}
+                                    photoUrl={item.photoUrl}
+                                />
+                            ))}
+                        </>
+                    )}
                 </div>
             </div>
             <div className="w-full flex flex-col py-10">
-                <div className='flex items-center justify-between'>
-                    <div className="text-[25px] font-semibold text-secondary2">Exclusives 2014-2015</div>
-                    <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
+                <div className="flex items-center justify-between">
+                    <div className="text-[25px] font-semibold text-secondary2">
+                        Exclusives 2014-2015
+                    </div>
+                    <button
+                        className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
                         onClick={() => router.push('/collection/ex20142015')}
                     >
                         <div className="flex items-center">
-                            <div className="text-[16px] text-primary text-center font-bold">View All</div>
+                            <div className="text-[16px] text-primary text-center font-bold">
+                                View All
+                            </div>
                         </div>
                     </button>
                 </div>
                 <div className="relative grid grid-cols-5 mt-[15px]">
-                    {
-                        loadingEX20142015 ? 
-                            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
-                                <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
-                            </div>
-                        :
-                            <>
-                                {
-                                    EX20142015List?.map((item, index) => (
-                                        <CollectionsPreviewCard 
-                                            key={index}
-                                            figureName={item.figure_name}
-                                            figureVersion={item.figure_version}
-                                            photoUrl={item.photoUrl}
-                                        />
-                                    ))
-                                }
-                            </>
-                    }
+                    {loadingEX20142015 ? (
+                        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
+                            <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
+                        </div>
+                    ) : (
+                        <>
+                            {EX20142015List?.map((item, index) => (
+                                <CollectionsPreviewCard
+                                    key={index}
+                                    figureName={item.figure_name}
+                                    figureVersion={item.figure_version}
+                                    photoUrl={item.photoUrl}
+                                />
+                            ))}
+                        </>
+                    )}
                 </div>
             </div>
             <div className="w-full flex flex-col py-10">
-                <div className='flex items-center justify-between'>
-                    <div className="text-[25px] font-semibold text-secondary2">Multipacks 2015-2017</div>
-                    <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
+                <div className="flex items-center justify-between">
+                    <div className="text-[25px] font-semibold text-secondary2">
+                        Multipacks 2015-2017
+                    </div>
+                    <button
+                        className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
                         onClick={() => router.push('/collection/mu20152017')}
                     >
                         <div className="flex items-center">
-                            <div className="text-[16px] text-primary text-center font-bold">View All</div>
+                            <div className="text-[16px] text-primary text-center font-bold">
+                                View All
+                            </div>
                         </div>
                     </button>
                 </div>
                 <div className="relative grid grid-cols-5 mt-[15px]">
-                    {
-                        loadingMU20152017 ? 
-                            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
-                                <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
-                            </div>
-                        :
-                            <>
-                                {
-                                    MU20152017List?.slice(0, 5).map((item, index) => (
-                                        <CollectionsPreviewCard 
-                                            key={index}
-                                            figureName={item.figure_name}
-                                            figureVersion={item.figure_version}
-                                            photoUrl={item.photoUrl}
-                                        />
-                                    ))
-                                }
-                            </>
-                    }
+                    {loadingMU20152017 ? (
+                        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
+                            <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
+                        </div>
+                    ) : (
+                        <>
+                            {MU20152017List?.slice(0, 5).map((item, index) => (
+                                <CollectionsPreviewCard
+                                    key={index}
+                                    figureName={item.figure_name}
+                                    figureVersion={item.figure_version}
+                                    photoUrl={item.photoUrl}
+                                />
+                            ))}
+                        </>
+                    )}
                 </div>
             </div>
         </div>

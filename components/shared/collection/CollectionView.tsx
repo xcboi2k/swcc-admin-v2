@@ -1,23 +1,26 @@
-"use client"
+'use client'
 
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'nextjs-toploader/app'
 
-import CollectionCard from './CollectionCard';
+import CollectionCard from './CollectionCard'
 
-import { useBA20132014Store } from '@/stores/useBA20132014Store';
-import { useBA20142015Store } from '@/stores/useBA20142015Store';
-import { useBA20152017Store } from '@/stores/useBA20152017Store';
-import { useEX20142015Store } from '@/stores/useEX20142015Store';
-import { useMU20152017Store } from '@/stores/useMU20152017Store';
+import { useBA20132014Store } from '@/stores/useBA20132014Store'
+import { useBA20142015Store } from '@/stores/useBA20142015Store'
+import { useBA20152017Store } from '@/stores/useBA20152017Store'
+import { useEX20142015Store } from '@/stores/useEX20142015Store'
+import { useMU20152017Store } from '@/stores/useMU20152017Store'
+import { useHideLoader } from '@/hooks/useHideLoader'
 
 type PropType = {
-    id: string,
+    id: string
 }
 
 const CollectionView: React.FC<PropType> = (props) => {
     const { id } = props
     const router = useRouter()
+
+    useHideLoader()
 
     const [collection, setCollection] = useState<any>()
     const [collectionTitle, setCollectionTitle] = useState<string>()
@@ -33,25 +36,25 @@ const CollectionView: React.FC<PropType> = (props) => {
             case 'ba20132014':
                 setCollection(BA20132014List)
                 setCollectionTitle('Basic Assortment 2013-2014')
-                break;
+                break
             case 'ba20142015':
                 setCollection(BA20142015List)
                 setCollectionTitle('Basic Assortment 2014-2015')
-                break;
+                break
             case 'ba20152017':
                 setCollection(BA20152017List)
                 setCollectionTitle('Basic Assortment 2015-2017')
-                break;
+                break
             case 'ex20142015':
                 setCollection(EX20142015List)
                 setCollectionTitle('Exclusives 2013-2014')
-                break;
+                break
             case 'mu20152017':
                 setCollection(MU20152017List)
                 setCollectionTitle('Multipacks 2013-2014')
-                break;
+                break
             default:
-                break;
+                break
         }
     }, [id])
 
@@ -61,49 +64,54 @@ const CollectionView: React.FC<PropType> = (props) => {
         switch (id) {
             case 'ba20132014':
                 router.push(`/view/ba20132014/${figureID}`)
-                break;
+                break
             case 'ba20142015':
                 router.push(`/view/ba20142015/${figureID}`)
-                break;
+                break
             case 'ba20152017':
                 router.push(`/view/ba20152017/${figureID}`)
-                break;
+                break
             case 'ex20142015':
                 router.push(`/view/ex20142015/${figureID}`)
-                break;
+                break
             case 'mu20152017':
                 router.push(`/view/mu20152017/${figureID}`)
-                break;
+                break
             default:
-                break;
+                break
         }
     }
-    
+
     return (
         <div className="flex flex-col items-center justify-between py-10 px-20">
             <div className="w-full flex flex-col py-10">
-                <div className='flex items-center justify-between'>
-                    <div className="text-[25px] font-semibold text-secondary2">{collectionTitle}</div>
-                    <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
+                <div className="flex items-center justify-between">
+                    <div className="text-[25px] font-semibold text-secondary2">
+                        {collectionTitle}
+                    </div>
+                    <button
+                        className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
                         onClick={() => router.push('/add/ba20132014')}
                     >
                         <div className="flex items-center">
-                            <div className="text-[16px] text-primary text-center font-bold">Add</div>
+                            <div className="text-[16px] text-primary text-center font-bold">
+                                Add
+                            </div>
                         </div>
                     </button>
                 </div>
                 <div className="grid grid-cols-5 gap-[20px] mt-[15px]">
-                    {
-                        collection?.map((item: any, index: number) => (
-                            <CollectionCard 
-                                key={index}
-                                figureName={item.figure_name}
-                                figureVersion={item.figure_version}
-                                photoUrl={item.photoUrl}
-                                pressCollectionCard={() => handleViewFigureDetails(item.id)}
-                            />
-                        ))
-                    }
+                    {collection?.map((item: any, index: number) => (
+                        <CollectionCard
+                            key={index}
+                            figureName={item.figure_name}
+                            figureVersion={item.figure_version}
+                            photoUrl={item.photoUrl}
+                            pressCollectionCard={() =>
+                                handleViewFigureDetails(item.id)
+                            }
+                        />
+                    ))}
                 </div>
             </div>
         </div>
