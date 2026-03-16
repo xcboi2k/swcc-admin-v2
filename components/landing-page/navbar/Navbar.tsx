@@ -1,9 +1,17 @@
 import React from 'react'
-import Image from 'next/image';
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-import { FaPhoneAlt, FaFacebookF, FaInstagram, FaLinkedinIn, FaBell, FaUser, FaSearch } from "react-icons/fa";
-import { FaXTwitter, FaAngleDown } from "react-icons/fa6";
+import {
+    FaPhoneAlt,
+    FaFacebookF,
+    FaInstagram,
+    FaLinkedinIn,
+    FaBell,
+    FaUser,
+    FaSearch,
+} from 'react-icons/fa'
+import { FaXTwitter, FaAngleDown } from 'react-icons/fa6'
 
 import SWCCLogo from '@/public/logos/swccLogo.png'
 
@@ -11,7 +19,7 @@ const Navbar = () => {
     const router = useRouter()
     return (
         <div>
-            <div className="flex items-center justify-between bg-secondary1 py-4 px-20">
+            {/* <div className="flex items-center justify-between bg-secondary1 py-4 px-20">
                 <div className="flex items-center">
                     <div className="flex items-center mr-6">
                         <div className="text-white mr-2">
@@ -53,17 +61,29 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </nav>
-            </div>
+            </div> */}
             <div className="flex items-center justify-between py-10 px-20">
                 <div className="mr-[30px] flex items-center">
-                    <Image src={SWCCLogo} alt="landing-page-logo" width={100} height={100} className='mr-[20px]'/>
-                    <div className="text-[60px] font-bold text-secondary2 text-center">SWCC</div>
+                    <Image
+                        src={SWCCLogo}
+                        alt="landing-page-logo"
+                        width={100}
+                        height={100}
+                        className="mr-[20px]"
+                    />
+                    <div className="text-[60px] font-bold text-secondary2 text-center">
+                        SWCC
+                    </div>
                 </div>
                 <div className="flex items-center">
-                    <button className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
-                        onClick={() => router.push('/login')}>
+                    <button
+                        className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1"
+                        onClick={() => router.push('/login')}
+                    >
                         <div className="flex items-center">
-                            <div className="text-[16px] text-primary text-center font-bold">Log In</div>
+                            <div className="text-[16px] text-primary text-center font-bold">
+                                Log In
+                            </div>
                         </div>
                     </button>
                 </div>
