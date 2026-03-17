@@ -1,17 +1,20 @@
 import React from 'react'
+import { LoaderCircle } from 'lucide-react'
 
-import useLoaderStore from '@/stores/useLoaderStore';
+import useLoaderStore from '@/stores/useLoaderStore'
 
 const Loader = () => {
-    const { isLoading } = useLoaderStore();
+    const { isLoading } = useLoaderStore()
 
-    if (!isLoading) return null; // Don't render if not loading
+    if (!isLoading) return null // Don't render if not loading
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/70 z-[9999]">
+            <div className="flex items-center justify-center w-12 h-12 animate-spin text-[100px]">
+                <LoaderCircle className="text-primary" size={500} />
+            </div>
         </div>
-    );
-};
+    )
+}
 
 export default Loader

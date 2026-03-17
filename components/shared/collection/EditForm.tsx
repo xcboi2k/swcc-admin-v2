@@ -1,18 +1,20 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
-import { ErrorMessage, Field, Form, Formik, useFormik } from 'formik'
+import { Form, Formik, useFormik } from 'formik'
 import Image from 'next/image'
 import { useRouter } from 'nextjs-toploader/app'
+import React, { useEffect, useRef, useState } from 'react'
+import * as Yup from 'yup'
 
+import { useHideLoader } from '@/hooks/useHideLoader'
 import { useBA20132014Store } from '@/stores/useBA20132014Store'
 import { useBA20142015Store } from '@/stores/useBA20142015Store'
 import { useBA20152017Store } from '@/stores/useBA20152017Store'
 import { useEX20142015Store } from '@/stores/useEX20142015Store'
+import useLoaderStore from '@/stores/useLoaderStore'
 import { useMU20152017Store } from '@/stores/useMU20152017Store'
 import Loader from '../components/Loader'
-import useLoaderStore from '@/stores/useLoaderStore'
-import { useHideLoader } from '@/hooks/useHideLoader'
+import TextInput from '../components/TextInput'
 
 type PropType = {
     collection: string
@@ -112,14 +114,14 @@ const EditForm: React.FC<PropType> = (props) => {
     }
 
     const loadValues = {
-        number: currentFigure?.figure_number,
-        name: currentFigure?.figure_name,
-        version: currentFigure?.figure_version,
-        dateStamp: currentFigure?.figure_date_stamp,
-        releaseDate: currentFigure?.figure_release_date,
-        jointCount: currentFigure?.figure_joint_count,
-        accessoryCount: currentFigure?.figure_accessory_count,
-        accessoryDetails: currentFigure?.figure_accessory_details,
+        number: currentFigure?.figure_number ?? '',
+        name: currentFigure?.figure_name ?? '',
+        version: currentFigure?.figure_version ?? '',
+        dateStamp: currentFigure?.figure_date_stamp ?? '',
+        releaseDate: currentFigure?.figure_release_date ?? '',
+        jointCount: currentFigure?.figure_joint_count ?? '',
+        accessoryCount: currentFigure?.figure_accessory_count ?? '',
+        accessoryDetails: currentFigure?.figure_accessory_details ?? '',
     }
 
     // FETCH DATA
@@ -325,6 +327,32 @@ const EditForm: React.FC<PropType> = (props) => {
         onSubmit: handleSubmit,
     })
 
+    const validationSchema = Yup.object({
+        number: Yup.string()
+            .required('Number is required')
+            .matches(/^\d+$/, 'Number must be a valid number'),
+
+        name: Yup.string().required('Name is required'),
+
+        version: Yup.string().required('Version is required'),
+
+        dateStamp: Yup.string().required('Date stamp is required'),
+
+        releaseDate: Yup.string().required('Release date is required'),
+
+        jointCount: Yup.string()
+            .required('Joint count is required')
+            .matches(/^\d+$/, 'Joint count must be a number'),
+
+        accessoryCount: Yup.string()
+            .required('Accessory count is required')
+            .matches(/^\d+$/, 'Accessory count must be a number'),
+
+        accessoryDetails: Yup.string().required(
+            'Accessory details are required'
+        ),
+    })
+
     const deleteFigureBA20132014 = useBA20132014Store(
         (state) => state.deleteFigure
     )
@@ -402,160 +430,124 @@ const EditForm: React.FC<PropType> = (props) => {
                 initialValues={currentFigure ? loadValues : initialValues}
                 onSubmit={handleSubmit}
                 enableReinitialize
+                validationSchema={validationSchema}
             >
-                {() => (
+                {({ values, errors, touched, handleChange }) => (
                     <div className="flex flex-col items-center justify-center py-10 px-20">
                         <Form className="w-full flex items-center justify-between">
                             <div className="w-[70%] flex flex-col">
-                                <div className="w-[80%] flex flex-col mb-[20px]">
-                                    <div className="text-[18px] text-secondary1 font-semibold">
-                                        Figure Number
-                                    </div>
-                                    <div>
-                                        <Field
-                                            type="number"
-                                            id="number"
-                                            name="number"
-                                            placeholder="Enter figure number"
-                                            className="w-full rounded-md border-2 p-[15px]"
-                                        />
-                                    </div>
-
-                                    <ErrorMessage
-                                        name="number"
-                                        component="div"
-                                    />
-                                </div>
-                                <div className="w-[80%] flex flex-col mb-[20px]">
-                                    <div className="text-[18px] text-secondary1 font-semibold">
-                                        Figure Name
-                                    </div>
-                                    <div>
-                                        <Field
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            placeholder="Enter figure name"
-                                            className="w-full rounded-md border-2 p-[15px]"
-                                        />
-                                    </div>
-
-                                    <ErrorMessage name="name" component="div" />
-                                </div>
-                                <div className="w-[80%] flex flex-col mb-[20px]">
-                                    <div className="text-[18px] text-secondary1 font-semibold">
-                                        Figure Version
-                                    </div>
-                                    <div>
-                                        <Field
-                                            type="text"
-                                            id="version"
-                                            name="version"
-                                            placeholder="Enter figure version"
-                                            className="w-full rounded-md border-2 p-[15px]"
-                                        />
-                                    </div>
-
-                                    <ErrorMessage
-                                        name="version"
-                                        component="div"
-                                    />
-                                </div>
-                                <div className="w-[80%] flex flex-col mb-[20px]">
-                                    <div className="text-[18px] text-secondary1 font-semibold">
-                                        Figure Date Stamp
-                                    </div>
-                                    <div>
-                                        <Field
-                                            type="number"
-                                            id="dateStamp"
-                                            name="dateStamp"
-                                            placeholder="Enter figure date stamp"
-                                            className="w-full rounded-md border-2 p-[15px]"
-                                        />
-                                    </div>
-
-                                    <ErrorMessage
-                                        name="dateStamp"
-                                        component="div"
-                                    />
-                                </div>
-                                <div className="w-[80%] flex flex-col mb-[20px]">
-                                    <div className="text-[18px] text-secondary1 font-semibold">
-                                        Figure Release Date
-                                    </div>
-                                    <div>
-                                        <Field
-                                            type="number"
-                                            id="releaseDate"
-                                            name="releaseDate"
-                                            placeholder="Enter figure release date"
-                                            className="w-full rounded-md border-2 p-[15px]"
-                                        />
-                                    </div>
-
-                                    <ErrorMessage
-                                        name="releaseDate"
-                                        component="div"
-                                    />
-                                </div>
-                                <div className="w-[80%] flex flex-col mb-[20px]">
-                                    <div className="text-[18px] text-secondary1 font-semibold">
-                                        Figure Joint Count
-                                    </div>
-                                    <div>
-                                        <Field
-                                            type="number"
-                                            id="jointCount"
-                                            name="jointCount"
-                                            placeholder="Enter figure joint count"
-                                            className="w-full rounded-md border-2 p-[15px]"
-                                        />
-                                    </div>
-
-                                    <ErrorMessage
-                                        name="jointCount"
-                                        component="div"
-                                    />
-                                </div>
-                                <div className="w-[80%] flex flex-col mb-[20px]">
-                                    <div className="text-[18px] text-secondary1 font-semibold">
-                                        Figure Accessory Count
-                                    </div>
-                                    <div>
-                                        <Field
-                                            type="number"
-                                            id="accessoryCount"
-                                            name="accessoryCount"
-                                            placeholder="Enter figure accessory count"
-                                            className="w-full rounded-md border-2 p-[15px]"
-                                        />
-                                    </div>
-
-                                    <ErrorMessage
-                                        name="accessoryCount"
-                                        component="div"
-                                    />
-                                </div>
-                                <div className="w-[80%] flex flex-col mb-[20px]">
-                                    <div className="text-[18px] text-secondary1 font-semibold">
-                                        Figure Accessory Details
-                                    </div>
-                                    <div>
-                                        <Field
-                                            type="text"
-                                            id="accessoryDetails"
-                                            name="accessoryDetails"
-                                            placeholder="Enter figure accessory details"
-                                            className="w-full rounded-md border-2 p-[15px]"
-                                        />
-                                    </div>
-
-                                    <ErrorMessage
-                                        name="accessoryDetails"
-                                        component="div"
-                                    />
-                                </div>
+                                <TextInput
+                                    labelText="Figure number:"
+                                    placeholderText="Enter figure number"
+                                    variant="number"
+                                    id="number"
+                                    name="number"
+                                    value={values.number}
+                                    onChangeInput={handleChange}
+                                    errorMessage={
+                                        touched.number && errors.number
+                                            ? errors.number
+                                            : undefined
+                                    }
+                                />
+                                <TextInput
+                                    labelText="Figure Name:"
+                                    placeholderText="Enter figure name"
+                                    id="name"
+                                    name="name"
+                                    value={values.name}
+                                    onChangeInput={handleChange}
+                                    errorMessage={
+                                        touched.name && errors.name
+                                            ? errors.name
+                                            : undefined
+                                    }
+                                />
+                                <TextInput
+                                    labelText="Figure Version:"
+                                    placeholderText="Enter figure version"
+                                    id="version"
+                                    name="version"
+                                    value={values.version}
+                                    onChangeInput={handleChange}
+                                    errorMessage={
+                                        touched.version && errors.version
+                                            ? errors.version
+                                            : undefined
+                                    }
+                                />
+                                <TextInput
+                                    labelText="Figure Date Stamp:"
+                                    placeholderText="Enter figure date stamp"
+                                    variant="number"
+                                    id="dateStamp"
+                                    name="dateStamp"
+                                    value={values.dateStamp}
+                                    onChangeInput={handleChange}
+                                    errorMessage={
+                                        touched.dateStamp && errors.dateStamp
+                                            ? errors.dateStamp
+                                            : undefined
+                                    }
+                                />
+                                <TextInput
+                                    labelText="Figure Release Date:"
+                                    placeholderText="Enter figure release date"
+                                    variant="number"
+                                    id="releaseDate"
+                                    name="releaseDate"
+                                    value={values.releaseDate}
+                                    onChangeInput={handleChange}
+                                    errorMessage={
+                                        touched.releaseDate &&
+                                        errors.releaseDate
+                                            ? errors.releaseDate
+                                            : undefined
+                                    }
+                                />
+                                <TextInput
+                                    labelText="Figure Joint Count:"
+                                    placeholderText="Enter figure joint count"
+                                    variant="number"
+                                    id="jointCount"
+                                    name="jointCount"
+                                    value={values.jointCount}
+                                    onChangeInput={handleChange}
+                                    errorMessage={
+                                        touched.jointCount && errors.jointCount
+                                            ? errors.jointCount
+                                            : undefined
+                                    }
+                                />
+                                <TextInput
+                                    labelText="Figure Accessory Count:"
+                                    placeholderText="Enter figure accessory count"
+                                    variant="number"
+                                    id="accessoryCount"
+                                    name="accessoryCount"
+                                    value={values.accessoryCount}
+                                    onChangeInput={handleChange}
+                                    errorMessage={
+                                        touched.accessoryCount &&
+                                        errors.accessoryCount
+                                            ? errors.accessoryCount
+                                            : undefined
+                                    }
+                                />
+                                <TextInput
+                                    labelText="Figure Accessory Details:"
+                                    placeholderText="Enter figure accessory details"
+                                    id="accessoryDetails"
+                                    name="accessoryDetails"
+                                    value={values.accessoryDetails}
+                                    onChangeInput={handleChange}
+                                    errorMessage={
+                                        touched.accessoryDetails &&
+                                        errors.accessoryDetails
+                                            ? errors.accessoryDetails
+                                            : undefined
+                                    }
+                                />
                             </div>
 
                             <div className="w-[30%] flex flex-col items-center justify-between">

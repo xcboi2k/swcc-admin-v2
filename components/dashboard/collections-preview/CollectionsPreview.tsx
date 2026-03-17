@@ -19,6 +19,7 @@ import useGetBA20152017List from '@/hooks/useGetBA20152017List'
 import useGetEX20142015List from '@/hooks/useGetEX20142015List'
 import useGetMU20152017List from '@/hooks/useGetMU20152017List'
 import { useHideLoader } from '@/hooks/useHideLoader'
+import LoadingView from '@/components/shared/components/LoadingView'
 
 const CollectionsPreview = () => {
     const router = useRouter()
@@ -64,9 +65,7 @@ const CollectionsPreview = () => {
                 </div>
                 <div className="relative grid grid-cols-5 mt-[15px]">
                     {loadingBA20132014 ? (
-                        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
-                            <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
-                        </div>
+                        <LoadingView />
                     ) : (
                         <>
                             {BA20132014List?.map((item, index) => (
@@ -99,9 +98,7 @@ const CollectionsPreview = () => {
                 </div>
                 <div className="relative grid grid-cols-5 mt-[15px]">
                     {loadingBA20142015 ? (
-                        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
-                            <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
-                        </div>
+                        <LoadingView />
                     ) : (
                         <>
                             {BA20142015List?.map((item, index) => (
@@ -134,9 +131,7 @@ const CollectionsPreview = () => {
                 </div>
                 <div className="relative grid grid-cols-5 mt-[15px]">
                     {loadingBA20152017 ? (
-                        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
-                            <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
-                        </div>
+                        <LoadingView />
                     ) : (
                         <>
                             {BA20152017List?.map((item, index) => (
@@ -169,9 +164,7 @@ const CollectionsPreview = () => {
                 </div>
                 <div className="relative grid grid-cols-5 mt-[15px]">
                     {loadingEX20142015 ? (
-                        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
-                            <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
-                        </div>
+                        <LoadingView />
                     ) : (
                         <>
                             {EX20142015List?.map((item, index) => (
@@ -204,9 +197,7 @@ const CollectionsPreview = () => {
                 </div>
                 <div className="relative grid grid-cols-5 mt-[15px]">
                     {loadingMU20152017 ? (
-                        <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
-                            <div className="w-12 h-12 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
-                        </div>
+                        <LoadingView />
                     ) : (
                         <>
                             {MU20152017List?.slice(0, 5).map((item, index) => (

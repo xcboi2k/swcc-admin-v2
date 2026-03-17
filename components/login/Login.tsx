@@ -1,33 +1,23 @@
 'use client'
 
-import Image from 'next/image'
-import React from 'react'
-import { useForm, Resolver } from 'react-hook-form'
 import { signIn } from 'next-auth/react'
+import Image from 'next/image'
 import { useRouter } from 'nextjs-toploader/app'
+import { Form, Formik } from 'formik'
+import { toast } from 'react-toastify'
+import * as Yup from 'yup'
 
-import LandingPageImage2 from '@/public/landing-page-images/landing-image-2.jpg'
-import Loader from '../shared/components/Loader'
-import useLoaderStore from '@/stores/useLoaderStore'
 import { useHideLoader } from '@/hooks/useHideLoader'
+import LandingPageImage2 from '@/public/landing-page-images/landing-image-2.jpg'
+import useLoaderStore from '@/stores/useLoaderStore'
+import Loader from '../shared/components/Loader'
+import Footer from '../shared/footer/Footer'
+import TextInput from '../shared/components/TextInput'
+import useUserStore from '@/stores/useUserStore'
 
 type FormValues = {
     username: string
     password: string
-}
-
-const resolver: Resolver<FormValues> = async (values) => {
-    return {
-        values: values.username ? values : {},
-        errors: !values.username
-            ? {
-                  username: {
-                      type: 'required',
-                      message: 'This is required.',
-                  },
-              }
-            : {},
-    }
 }
 
 const Login = () => {
@@ -35,22 +25,25 @@ const Login = () => {
     const { showLoader } = useLoaderStore()
     useHideLoader()
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<FormValues>({ resolver })
-    const onSubmit = async (data: any) => {
+    const initialValues: FormValues = {
+        username: '',
+        password: '',
+    }
+
+    const validationSchema = Yup.object({
+        username: Yup.string().required('Username is required'),
+        password: Yup.string().required('Password is required'),
+    })
+
+    const setLoggedIn = useUserStore((state) => state.setLoggedIn)
+    const onSubmit = async (data: FormValues) => {
         console.log('entered data:', data)
         showLoader()
         try {
-            const response = await signIn('credentials', {
-                username: data.username,
-                password: data.password,
-            })
-            if (response?.ok) {
-                console.log('You are logged in:', response)
+            if (data.username === 'Admin' && data.password === 'Admin_123') {
+                toast.success('Successfully logged in.')
                 // Redirect to the dashboard page
+                setLoggedIn()
                 router.push('/dashboard')
             } else {
                 console.log('Authentication failed')
@@ -65,7 +58,7 @@ const Login = () => {
     }
 
     return (
-        <div className="w-full h-screen relative">
+        <div className="w-full relative">
             <div className="absolute w-full h-full top-0 left-0 bg-[#243447BF] z-20"></div>
             <div className="bg-white shadow-md rounded px-8 py-6">
                 <div className="absolute w-full h-full top-0 left-0 bg-[#243447BF] z-10">
@@ -83,38 +76,55 @@ const Login = () => {
                         <div className="text-[40px] font-bold text-secondary2 text-center mt-8 w-[90%] mx-auto mb-[25px]">
                             Login
                         </div>
-                        <form
-                            onSubmit={handleSubmit(onSubmit)}
-                            className="flex flex-col justify-center items-center mb-[20px]"
+                        <Formik
+                            initialValues={initialValues}
+                            validationSchema={validationSchema}
+                            onSubmit={onSubmit}
                         >
-                            <div className="mb-[15px] w-[60%]">
-                                <input
-                                    {...register('username')}
-                                    placeholder="Enter Username"
-                                    className="rounded-lg border border-secondary2 p-4 w-[100%]"
-                                />
-                                {errors?.username && (
-                                    <div className="text-[15px] text-secondary2">
-                                        Username is required
+                            {({ values, errors, touched, handleChange }) => (
+                                <Form className="flex flex-col justify-center items-center mb-[20px]">
+                                    <div className="mb-[15px] w-[60%]">
+                                        <TextInput
+                                            placeholderText="Enter Username"
+                                            id="username"
+                                            name="username"
+                                            value={values.username}
+                                            onChangeInput={handleChange}
+                                            errorMessage={
+                                                touched.username &&
+                                                errors.username
+                                                    ? errors.username
+                                                    : undefined
+                                            }
+                                        />
                                     </div>
-                                )}
-                            </div>
-                            <input
-                                {...register('password')}
-                                placeholder="Enter Password"
-                                className="rounded-lg border border-secondary2 p-4 mb-[15px] w-[60%]"
-                            />
-                            <button
-                                className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1 mb-[15px] w-[60%]"
-                                type="submit"
-                            >
-                                <div className="flex justify-center items-center">
-                                    <div className="text-[16px] text-primary text-center font-bold">
-                                        Submit
+                                    <div className="mb-[15px] w-[60%]">
+                                        <TextInput
+                                            placeholderText="Enter Password"
+                                            variant="password"
+                                            id="password"
+                                            name="password"
+                                            value={values.password}
+                                            onChangeInput={handleChange}
+                                            errorMessage={
+                                                touched.password &&
+                                                errors.password
+                                                    ? errors.password
+                                                    : undefined
+                                            }
+                                        />
                                     </div>
-                                </div>
-                            </button>
-                            <div className="flex justify-center items-center mb-[15px]">
+                                    <button
+                                        className="px-[45px] py-[15px] inline-block rounded-full bg-secondary1 mb-[15px] w-[60%]"
+                                        type="submit"
+                                    >
+                                        <div className="flex justify-center items-center">
+                                            <div className="text-[16px] text-primary text-center font-bold">
+                                                Submit
+                                            </div>
+                                        </div>
+                                    </button>
+                                    {/* <div className="flex justify-center items-center mb-[15px]">
                                 <div className="border border-black w-[200px] mr-4"></div>
                                 <span className="text-black">or</span>
                                 <div className="border border-black w-[200px] ml-4"></div>
@@ -129,12 +139,15 @@ const Login = () => {
                                         Sign In with GitHub
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </div> */}
+                                </Form>
+                            )}
+                        </Formik>
                     </div>
                 </div>
             </div>
             <Loader />
+            <Footer />
         </div>
     )
 }
