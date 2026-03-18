@@ -63,7 +63,7 @@ const CollectionsPreview = () => {
                         </div>
                     </button>
                 </div>
-                <div className="relative grid grid-cols-5 mt-[15px]">
+                <div className="relative grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-6">
                     {loadingBA20132014 ? (
                         <LoadingView />
                     ) : (
@@ -96,7 +96,7 @@ const CollectionsPreview = () => {
                         </div>
                     </button>
                 </div>
-                <div className="relative grid grid-cols-5 mt-[15px]">
+                <div className="relative grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-6">
                     {loadingBA20142015 ? (
                         <LoadingView />
                     ) : (
@@ -129,7 +129,7 @@ const CollectionsPreview = () => {
                         </div>
                     </button>
                 </div>
-                <div className="relative grid grid-cols-5 mt-[15px]">
+                <div className="relative grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-6">
                     {loadingBA20152017 ? (
                         <LoadingView />
                     ) : (
@@ -162,7 +162,7 @@ const CollectionsPreview = () => {
                         </div>
                     </button>
                 </div>
-                <div className="relative grid grid-cols-5 mt-[15px]">
+                <div className="relative grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-6">
                     {loadingEX20142015 ? (
                         <LoadingView />
                     ) : (
@@ -179,7 +179,7 @@ const CollectionsPreview = () => {
                     )}
                 </div>
             </div>
-            <div className="w-full flex flex-col py-10">
+            {/* <div className="w-full flex flex-col py-10">
                 <div className="flex items-center justify-between">
                     <div className="text-[25px] font-semibold text-secondary2">
                         Multipacks 2015-2017
@@ -195,7 +195,7 @@ const CollectionsPreview = () => {
                         </div>
                     </button>
                 </div>
-                <div className="relative grid grid-cols-5 mt-[15px]">
+                <div className="relative grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-6">
                     {loadingMU20152017 ? (
                         <LoadingView />
                     ) : (
@@ -211,7 +211,7 @@ const CollectionsPreview = () => {
                         </>
                     )}
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }
